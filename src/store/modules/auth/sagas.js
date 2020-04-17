@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 import history from '../../../services/history';
 import api from '../../../services/api';
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signFailure, signUpSuccess } from './actions';
 import TYPES from './types';
 
 export function* signIn({ payload }) {
@@ -14,9 +14,7 @@ export function* signIn({ payload }) {
       email,
       password,
     });
-
     const { token, user } = response.data;
-    // console.log(token);
     yield put(signInSuccess(token, user));
     history.push('/home');
   } catch (e) {
@@ -25,4 +23,24 @@ export function* signIn({ payload }) {
   }
 }
 
-export default all([takeLatest(TYPES.USE_SIGN_IN_REQUEST, signIn)]);
+export function* signUp({ payload }) {
+  try {
+    const { name, email, password } = payload;
+    yield call(api.post, '/users', {
+      name,
+      email,
+      password,
+    });
+    toast.success('Cadastro realizado com sucesso! faça o login');
+    yield put(signUpSuccess());
+    history.push('/');
+  } catch (e) {
+    toast.error('Falha no cadastro, verifique seus dados');
+    yield put(signFailure());
+  }
+}
+
+export default all([
+  takeLatest(TYPES.AUTH_SIGN_IN_REQUEST, signIn),
+  takeLatest(TYPES.AUTH_SIGN_UP_REQUEST, signUp),
+]);
