@@ -1,7 +1,10 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
+
+import { signInRequest } from '../../store/modules/auth/actions';
 
 import logo from '../../assets/svgs/logo.svg';
 
@@ -15,8 +18,11 @@ const schema = Yup.object().shape({
 });
 
 function SignInPage() {
-  const handleSubmit = (data) => {
-    console.log(data);
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
+
+  const handleSubmit = ({ email, password }) => {
+    dispatch(signInRequest(email, password));
   };
 
   return (
@@ -32,7 +38,7 @@ function SignInPage() {
             placeholder="digite sua senha"
           />
 
-          <button type="submit">Acessar</button>
+          <button type="submit">{loading ? 'Carregando...' : 'Acessar'}</button>
 
           <Link to="/registrar">Criar Conta</Link>
         </Form>
