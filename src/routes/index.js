@@ -12,7 +12,7 @@ function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignInPage} />
-      <Route path="/cadastrar" component={SignUpPage} />
+      <Route path="/registrar" component={SignUpPage} />
 
       <Route path="/home" component={HomePage} isPrivate />
       <Route path="/blocos" component={BlocksPage} isPrivate />
