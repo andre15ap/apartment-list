@@ -22,7 +22,7 @@ export const Content = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top: 20px;
 
     input {
       height: 44px;
@@ -30,7 +30,7 @@ export const Content = styled.div`
       color: ${COLORS.PRIMARY};
       border: 0;
       border-radius: 4px;
-      margin: 0 0 10px;
+      margin-top: 10px;
     }
 
     button {
@@ -41,7 +41,7 @@ export const Content = styled.div`
       font-weight: bold;
       border: 0;
       border-radius: 4px;
-      margin: 0 0 10px;
+      margin-top: 10px;
       transition: background 0.2s;
 
       &:hover {
@@ -50,12 +50,19 @@ export const Content = styled.div`
     }
 
     a {
+      margin-top: 10px;
       color: ${COLORS.PRIMARY};
       opacity: 0.8;
 
       &:hover {
         opacity: 1;
       }
+    }
+
+    span {
+      color: ${COLORS.DANGER};
+      align-self: flex-start;
+      margin-top: 0;
     }
   }
 `;

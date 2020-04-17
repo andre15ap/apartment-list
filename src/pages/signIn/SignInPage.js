@@ -1,10 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 
 import logo from '../../assets/svgs/logo.svg';
 
 import { Container, Content } from './styles';
+
+const schema = Yup.object().shape({
+  email: Yup.string()
+    .email('E-mail inválido')
+    .required('Campo E-mail é obrigatório'),
+  password: Yup.string().required('Senha é obrigatório'),
+});
 
 function SignInPage() {
   const handleSubmit = (data) => {
@@ -16,7 +24,7 @@ function SignInPage() {
       <Content>
         <img src={logo} alt="kiper" />
 
-        <Form onSubmit={handleSubmit}>
+        <Form schema={schema} onSubmit={handleSubmit}>
           <Input name="email" type="email" placeholder="digite seu email" />
           <Input
             name="password"

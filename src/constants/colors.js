@@ -13,4 +13,5 @@ export default {
   TRANSPARENT: 'transparent',
   BACKGROUND: '#EEEEEE',
   BACKGROUND_LIGHT: '#EEE6FF',
+  DANGER: '#f64c75',
 };
