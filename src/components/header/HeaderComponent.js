@@ -17,6 +17,9 @@ function HeaderComponent() {
         </nav>
 
         <aside>
+          <Link to="/home">Moradores</Link>
+          <Link to="/profile">Apartamentos</Link>
+          <Link to="/blocos">Blocos</Link>
           <Profile>
             <div>
               <strong>{profile.name}</strong>
