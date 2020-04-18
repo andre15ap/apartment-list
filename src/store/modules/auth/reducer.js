@@ -23,6 +23,8 @@ function auth(state = INITIAL_STATE, action) {
       return { ...state, loading: false };
     case TYPES.AUTH_SIGN_FAILURE:
       return { ...state, loading: false };
+    case TYPES.AUTH_SIGN_OUT:
+      return { ...state, token: null, signed: false };
     default:
       return state;
   }

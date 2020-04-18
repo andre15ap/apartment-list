@@ -40,7 +40,21 @@ export function* signUp({ payload }) {
   }
 }
 
+export function setToken({ payload }) {
+  if (!payload) return;
+  const { token } = payload.auth;
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
+export function signOut() {
+  history.push('/');
+}
+
 export default all([
+  takeLatest(TYPES.AUTH_PERSIST_REHYDRATE, setToken),
   takeLatest(TYPES.AUTH_SIGN_IN_REQUEST, signIn),
   takeLatest(TYPES.AUTH_SIGN_UP_REQUEST, signUp),
+  takeLatest(TYPES.AUTH_SIGN_OUT, signOut),
 ]);

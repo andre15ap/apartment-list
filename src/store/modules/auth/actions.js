@@ -32,3 +32,9 @@ export function signUpSuccess() {
     type: TYPES.AUTH_SIGN_UP_SUCCESS,
   };
 }
+
+export function signOut() {
+  return {
+    type: TYPES.AUTH_SIGN_OUT,
+  };
+}
