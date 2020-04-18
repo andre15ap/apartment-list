@@ -11,6 +11,7 @@ export default {
   GRAY_LIGHT: '#E3E3E3',
   PRIMARY_TRANSPARENT: 'rgba(116, 85, 255, 0.4)',
   TRANSPARENT: 'transparent',
+  OPACITY: 'rgba(0,0,0,0.2)',
   BACKGROUND: '#EEEEEE',
   BACKGROUND_LIGHT: '#EEE6FF',
   DANGER: '#f64c75',

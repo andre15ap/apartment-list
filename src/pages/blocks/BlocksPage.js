@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { FaTrashAlt, FaEdit, FaRegPlusSquare } from 'react-icons/fa';
 
-import { getBlocks } from '../../services/blocksService';
+import {
+  getBlocks,
+  saveBlock,
+  editBlock,
+  deleteBlock,
+} from '../../services/blocksService';
 import COLORS from '../../constants/colors';
+
+import FormBlockComponent from '../../components/formBlock/FormBlockComponent';
 import { Container, Content, Card } from './styles';
 
 function BlocksPage() {
   const [blocks, setBlocks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openForm, setOpenForm] = useState(false);
+  const [edit, setEdit] = useState(null);
 
   const getAllBlocks = async () => {
     const data = await getBlocks();
@@ -15,42 +24,75 @@ function BlocksPage() {
     setBlocks(data);
   };
 
+  const onSave = async (data) => {
+    setLoading(false);
+    const { id } = data;
+    if (id) {
+      await editBlock(data);
+    } else {
+      await saveBlock(data);
+    }
+    await getAllBlocks();
+  };
+
+  const onDelete = async (id) => {
+    await deleteBlock(id);
+    await getAllBlocks();
+  };
+
+  const openEditForm = (data) => {
+    setEdit(data);
+    setOpenForm(true);
+  };
+
+  const openSaveForm = () => {
+    setEdit(null);
+    setOpenForm(true);
+  };
+
   useEffect(() => {
     getAllBlocks();
   }, []);
 
   return (
-    <Container>
-      <Content>
-        <div>
-          <strong>Blocos</strong>
-          <button type="button">
-            <FaRegPlusSquare color={COLORS.PRIMARY} size={20} />
-          </button>
-        </div>
-        <ul>
-          {loading ? (
-            <h3> carregando ... </h3>
-          ) : (
-            blocks.map((card) => {
-              return (
+    <>
+      {openForm && (
+        <FormBlockComponent
+          close={() => setOpenForm(false)}
+          onSubmit={onSave}
+          initialData={edit}
+        />
+      )}
+      <Container>
+        <Content>
+          <div>
+            <strong>Blocos</strong>
+            <button type="button" onClick={openSaveForm}>
+              <FaRegPlusSquare color={COLORS.PRIMARY} size={20} />
+            </button>
+          </div>
+          <ul>
+            {loading ? (
+              <h3> carregando ... </h3>
+            ) : (
+              blocks.map((card) => (
                 <Card key={card.id}>
                   <p>{card.identifier}</p>
                   <div>
-                    <button type="button">
+                    <button onClick={() => openEditForm(card)} type="button">
                       <FaEdit color={COLORS.SECONDARY_DARK} size={20} />
                     </button>
-                    <button type="button">
+                    <button onClick={() => onDelete(card.id)} type="button">
                       <FaTrashAlt color={COLORS.DANGER} size={20} />
                     </button>
                   </div>
                 </Card>
-              );
-            })
-          )}
-        </ul>
-      </Content>
-    </Container>
+              ))
+            )}
+          </ul>
+        </Content>
+      </Container>
+    </>
   );
 }
 
