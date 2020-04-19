@@ -1,33 +1,25 @@
 import { toast } from 'react-toastify';
 import api from './api';
 
-const getBlocks = async () => {
+const getBlocks = async (page = 1) => {
   try {
-    const response = await api.get('/blocks');
+    const response = await api.get(`/blocks?page=${page}`);
     return response.data;
   } catch (err) {
     return [];
   }
 };
 
-const saveBlock = async (identifier) => {
-  try {
-    await api.post('/blocks', identifier);
-    toast.success('Criado com sucesso!');
-  } catch (err) {
-    if (err.response) {
-      toast.error(err.response.data.error);
-    } else {
-      toast.error('Error, Verifique os campos');
-    }
-  }
-};
-
-const editBlock = async (data) => {
+const saveBlock = async (data) => {
   try {
     const { identifier, id } = data;
-    await api.put(`/blocks/${id}`, { identifier });
-    toast.success('Editado com sucesso!');
+    if (id) {
+      await api.put(`/blocks/${id}`, { identifier });
+      toast.success('Editado com sucesso!');
+    } else {
+      await api.post('/blocks', { identifier });
+      toast.success('Criado com sucesso!');
+    }
   } catch (err) {
     if (err.response) {
       toast.error(err.response.data.error);
@@ -50,4 +42,4 @@ const deleteBlock = async (id) => {
   }
 };
 
-export { getBlocks, saveBlock, editBlock, deleteBlock };
+export { getBlocks, saveBlock, deleteBlock };

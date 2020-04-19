@@ -8,24 +8,24 @@ import {
   listRequest,
   saveRequest,
   deleteRequest,
-} from '../../store/modules/block/actions';
+} from '../../store/modules/dweller/actions';
 
 import COLORS from '../../constants/colors';
 
 import FormBlockComponent from '../../components/formBlock/FormBlockComponent';
 import { Container, Content, ContainerScroll, Card } from './styles';
 
-function BlocksPage() {
+function DwellersPage() {
   const [openForm, setOpenForm] = useState(false);
   const [edit, setEdit] = useState(null);
 
   const dispatch = useDispatch();
-  const blocks = useSelector((state) => state.block.blocks);
-  const loading = useSelector((state) => state.block.loading);
-  const hasMore = useSelector((state) => state.block.hasMore);
-  const page = useSelector((state) => state.block.page);
+  const dwellers = useSelector((state) => state.dweller.dwellers);
+  const loading = useSelector((state) => state.dweller.loading);
+  const hasMore = useSelector((state) => state.dweller.hasMore);
+  const page = useSelector((state) => state.dweller.page);
 
-  const getAllBlocks = () => {
+  const getAllDwellers = () => {
     dispatch(listRequest(1));
   };
 
@@ -48,13 +48,13 @@ function BlocksPage() {
   };
 
   const loadMore = () => {
-    if (blocks.length >= 15 && !loading) {
+    if (dwellers.length >= 15 && !loading) {
       dispatch(listRequest(page));
     }
   };
 
   useEffect(() => {
-    getAllBlocks();
+    getAllDwellers();
   }, []);
 
   return (
@@ -70,7 +70,7 @@ function BlocksPage() {
         <ContainerScroll>
           <Content>
             <div>
-              <strong>Blocos</strong>
+              <strong>Moradores</strong>
               <button type="button" onClick={openSaveForm}>
                 <FaRegPlusSquare color={COLORS.PRIMARY} size={20} />
               </button>
@@ -88,10 +88,15 @@ function BlocksPage() {
               </div>
             }
           >
-            {blocks &&
-              blocks.map((card) => (
+            {dwellers &&
+              dwellers.map((card) => (
                 <Card key={card.id}>
-                  <p>{card.identifier}</p>
+                  <div>
+                    <p>{card.name}</p>
+                    <span>
+                      Ap.: {card.apartment ? card.apartment.identifier : ' - '}
+                    </span>
+                  </div>
                   <div>
                     <button onClick={() => openEditForm(card)} type="button">
                       <FaEdit color={COLORS.SECONDARY_DARK} size={20} />
@@ -109,4 +114,4 @@ function BlocksPage() {
   );
 }
 
-export default BlocksPage;
+export default DwellersPage;

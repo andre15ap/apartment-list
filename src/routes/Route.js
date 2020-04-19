@@ -16,7 +16,7 @@ function RouteWrapper({ component: Component, isPrivate, ...rest }) {
   }
 
   if (signed && !isPrivate) {
-    return <Redirect to="/home" />;
+    return <Redirect to="/apartamentos" />;
   }
 
   const Layout = signed ? AuthLayout : DefaultLayout;

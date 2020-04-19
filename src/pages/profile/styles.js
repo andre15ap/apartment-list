@@ -7,7 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100%;
+  /* height: 100%; */
   text-align: center;
 `;
 
@@ -20,6 +20,7 @@ export const Content = styled.div`
     margin: 20px 0;
     font-weight: bold;
     color: ${COLORS.PRIMARY};
+    text-align: left;
   }
 
   form {
@@ -31,7 +32,7 @@ export const Content = styled.div`
       height: 44px;
       padding: 0 15px;
       color: ${COLORS.PRIMARY};
-      border: 0;
+      border: solid 1px;
       border-radius: 4px;
       margin-top: 10px;
     }

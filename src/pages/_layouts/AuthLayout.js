@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import HeaderComponent from '../../components/header/HeaderComponent';
 
-import { Container } from './styles';
+import { Container, Content } from './styles';
 
 function AuthLayout({ children }) {
   return (
     <Container>
       <HeaderComponent />
-      {children}
+      <Content>{children}</Content>
     </Container>
   );
 }

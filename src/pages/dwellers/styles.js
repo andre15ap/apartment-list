@@ -64,7 +64,11 @@ export const Card = styled.div`
 
   p {
     color: ${COLORS.GRAY};
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
+  }
+
+  span {
+    font-size: 12px;
   }
 `;

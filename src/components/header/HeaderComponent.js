@@ -13,13 +13,15 @@ function HeaderComponent() {
       <Content>
         <nav>
           <img src={logo} alt="kiper" />
-          <Link to="/home">Home</Link>
+          <Link to="/apartamentos">Home</Link>
         </nav>
 
         <aside>
-          <Link to="/home">Moradores</Link>
-          <Link to="/profile">Apartamentos</Link>
-          <Link to="/blocos">Blocos</Link>
+          <div className="links">
+            <Link to="/moradores">Moradores</Link>
+            <Link to="/apartamentos">Apartamentos</Link>
+            <Link to="/blocos">Blocos</Link>
+          </div>
           <Profile>
             <div>
               <strong>{profile.name}</strong>

@@ -5,6 +5,8 @@ import COLORS from '../../constants/colors';
 export const Container = styled.div`
   background: ${COLORS.WHITE};
   padding: 0 30px;
+  position: absolute;
+  width: 100%;
 `;
 
 export const Content = styled.div`
@@ -35,6 +37,12 @@ export const Content = styled.div`
   aside {
     display: flex;
     align-items: center;
+
+    @media only screen and (max-width: 600px) {
+      .links {
+        display: none;
+      }
+    }
 
     a {
       margin: 0 5px;
