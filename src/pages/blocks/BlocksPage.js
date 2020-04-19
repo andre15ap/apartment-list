@@ -15,7 +15,7 @@ import COLORS from '../../constants/colors';
 import FormBlockComponent from '../../components/formBlock/FormBlockComponent';
 import { Container, Content, ContainerScroll, Card } from './styles';
 
-function BlocksPage() {
+function ApartmentPage() {
   const [openForm, setOpenForm] = useState(false);
   const [edit, setEdit] = useState(null);
 
@@ -109,4 +109,4 @@ function BlocksPage() {
   );
 }
 
-export default BlocksPage;
+export default ApartmentPage;

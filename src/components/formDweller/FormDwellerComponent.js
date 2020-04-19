@@ -91,26 +91,35 @@ function FormDwellerComponent({ onSubmit, close, initialData }) {
       <Content>
         <p>{initialData ? 'Editar Morador' : 'Novo Morador'}</p>
         <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
-          <Input minLength={3} name="name" placeholder="digite o nome" />
           <Input
+            label="Nome Completo"
+            minLength={3}
+            name="name"
+            placeholder="digite o nome"
+          />
+
+          <Input
+            label="Email"
             type="email"
             minLength={3}
             name="email"
             placeholder="digite o e-mail"
           />
-
+          <label htlmFor="birthday">Data de Nascimento</label>
           <input
             onChange={handleBirthday}
             value={birthday}
             placeholder="digite a Data de Nascimento"
             name="birthday"
           />
+          <label htlmFor="cpf">CPF do Morador</label>
           <input
             onChange={handleCpf}
             value={cpf}
             placeholder="digite o CPF"
             name="cpf"
           />
+          <label htlmFor="phone">Telefone</label>
           <input
             onChange={handlePhone}
             value={phone}

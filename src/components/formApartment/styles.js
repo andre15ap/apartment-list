@@ -23,7 +23,7 @@ export const Content = styled.div`
 
   p {
     font-size: 22px;
-    margin: 10px 0;
+    margin: 20px 0;
     font-weight: bold;
     color: ${COLORS.PRIMARY};
   }
@@ -31,7 +31,11 @@ export const Content = styled.div`
   form {
     display: flex;
     flex-direction: column;
-
+    /* margin-top: 20px; */
+    > div {
+      height: 44px;
+      margin: 0 0 10px;
+    }
     input {
       height: 44px;
       padding: 0 15px;

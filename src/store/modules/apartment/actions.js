@@ -23,13 +23,13 @@ export function listFailure() {
 
 export function saveRequest(data) {
   return {
-    type: TYPES.BLOCK_SAVE_REQUEST,
+    type: TYPES.APARTMENT_SAVE_REQUEST,
     payload: { data },
   };
 }
 export function deleteRequest(id) {
   return {
-    type: TYPES.BLOCK_DELETE_REQUEST,
+    type: TYPES.APARTMENT_DELETE_REQUEST,
     payload: { id },
   };
 }

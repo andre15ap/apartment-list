@@ -94,8 +94,10 @@ function DwellersPage() {
                   <div>
                     <p>{card.name}</p>
                     <span>
-                      Ap.: {card.apartment ? card.apartment.identifier : ' - '}
+                      Apartamento:{' '}
+                      {card.apartment ? card.apartment.identifier : ' - '}
                     </span>
+                    {card.responsible && <span> - Responsável</span>}
                   </div>
                   <div>
                     <button onClick={() => openEditForm(card)} type="button">

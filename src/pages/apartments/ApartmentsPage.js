@@ -1,37 +1,40 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { FaTrashAlt, FaEdit, FaRegPlusSquare } from 'react-icons/fa';
 
+import InfiniteScroll from 'react-infinite-scroller';
 import {
-  getBlocks,
-  saveBlock,
-  deleteBlock,
-} from '../../services/blocksService';
+  listRequest,
+  saveRequest,
+  deleteRequest,
+} from '../../store/modules/apartment/actions';
+
 import COLORS from '../../constants/colors';
 
-import FormBlockComponent from '../../components/formBlock/FormBlockComponent';
-import { Container, Content, Card } from './styles';
+import FormApartmentComponent from '../../components/formApartment/FormApartmentComponent';
+import { Container, Content, ContainerScroll, Card } from './styles';
 
-function ApartmentsPage() {
-  const [blocks, setBlocks] = useState([]);
-  const [loading, setLoading] = useState(true);
+function ApartmentPage() {
   const [openForm, setOpenForm] = useState(false);
   const [edit, setEdit] = useState(null);
 
-  const getAllBlocks = async () => {
-    const data = await getBlocks();
-    setLoading(false);
-    setBlocks(data);
+  const dispatch = useDispatch();
+  const apartments = useSelector((state) => state.apartment.apartments);
+  const loading = useSelector((state) => state.apartment.loading);
+  const hasMore = useSelector((state) => state.apartment.hasMore);
+  const page = useSelector((state) => state.apartment.page);
+
+  const getAllApartments = () => {
+    dispatch(listRequest(1));
   };
 
-  const onSave = async (data) => {
-    setLoading(false);
-    await saveBlock(data);
-    await getAllBlocks();
+  const onSave = (data) => {
+    dispatch(saveRequest(data));
   };
 
-  const onDelete = async (id) => {
-    await deleteBlock(id);
-    await getAllBlocks();
+  const onDelete = (id) => {
+    dispatch(deleteRequest(id));
   };
 
   const openEditForm = (data) => {
@@ -44,34 +47,54 @@ function ApartmentsPage() {
     setOpenForm(true);
   };
 
+  const loadMore = () => {
+    if (apartments.length >= 15 && !loading) {
+      dispatch(listRequest(page));
+    }
+  };
+
   useEffect(() => {
-    getAllBlocks();
+    getAllApartments();
   }, []);
 
   return (
     <>
       {openForm && (
-        <FormBlockComponent
+        <FormApartmentComponent
           close={() => setOpenForm(false)}
           onSubmit={onSave}
           initialData={edit}
         />
       )}
       <Container>
-        <Content>
-          <div>
-            <strong>Apartamentos</strong>
-            <button type="button" onClick={openSaveForm}>
-              <FaRegPlusSquare color={COLORS.PRIMARY} size={20} />
-            </button>
-          </div>
-          <ul>
-            {loading ? (
-              <h3> carregando ... </h3>
-            ) : (
-              blocks.map((card) => (
+        <ContainerScroll>
+          <Content>
+            <div>
+              <strong>Apartmentos</strong>
+              <button type="button" onClick={openSaveForm}>
+                <FaRegPlusSquare color={COLORS.PRIMARY} size={20} />
+              </button>
+            </div>
+          </Content>
+          <InfiniteScroll
+            pageStart={0}
+            threshold={10}
+            loadMore={loadMore}
+            hasMore={hasMore}
+            useWindow={false}
+            loader={
+              <div className="loader" key={0}>
+                Loading ...
+              </div>
+            }
+          >
+            {apartments &&
+              apartments.map((card) => (
                 <Card key={card.id}>
-                  <p>{card.identifier}</p>
+                  <div>
+                    <p>{card.identifier}</p>
+                    <span>Bloco.: {card.block ? card.block.label : ' - '}</span>
+                  </div>
                   <div>
                     <button onClick={() => openEditForm(card)} type="button">
                       <FaEdit color={COLORS.SECONDARY_DARK} size={20} />
@@ -81,13 +104,12 @@ function ApartmentsPage() {
                     </button>
                   </div>
                 </Card>
-              ))
-            )}
-          </ul>
-        </Content>
+              ))}
+          </InfiniteScroll>
+        </ContainerScroll>
       </Container>
     </>
   );
 }
 
-export default ApartmentsPage;
+export default ApartmentPage;

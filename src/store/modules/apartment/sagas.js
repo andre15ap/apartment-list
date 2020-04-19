@@ -22,12 +22,12 @@ export function* getAllApartmentsRequest({ payload }) {
 
 export function* saveApartmentsRequest({ payload }) {
   try {
-    const { identifier, id } = payload.data;
+    const { id, ...rest } = payload.data;
     if (id) {
-      yield call(api.put, `/apartments/${id}`, { identifier });
+      yield call(api.put, `/apartments/${id}`, rest);
       toast.success('Editado com sucesso!');
     } else {
-      yield call(api.post, `/apartments`, { identifier });
+      yield call(api.post, `/apartments`, rest);
       toast.success('Criado com sucesso!');
     }
 

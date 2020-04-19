@@ -3,17 +3,22 @@ import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 
 export const Container = styled.div`
-  max-width: 600px;
-  margin: 50px auto;
   display: flex;
   flex-direction: column;
 `;
 
-export const Content = styled.div`
-  padding: 0 10px;
-  div {
-    display: flex;
-    justify-content: space-between;
+export const ContainerScroll = styled.div`
+  height: calc(100vh - 64px);
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  > div {
+    width: 100%;
+    max-width: 600px;
   }
 
   button {
@@ -23,6 +28,18 @@ export const Content = styled.div`
     border-radius: 5px;
     border-color: ${COLORS.GRAY_LIGHT};
     border-width: 1px;
+  }
+`;
+
+export const Content = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  > div {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
   }
 
   strong {
@@ -47,5 +64,9 @@ export const Card = styled.div`
     color: ${COLORS.GRAY};
     font-size: 18px;
     font-weight: bold;
+  }
+
+  span {
+    font-size: 12px;
   }
 `;

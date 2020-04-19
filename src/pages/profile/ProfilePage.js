@@ -48,7 +48,7 @@ function ProfilePage() {
           </button>
         </Form>
         <button onClick={handleSignOut} type="button">
-          Sair
+          Sair do Sistema
         </button>
       </Content>
     </Container>

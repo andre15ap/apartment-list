@@ -19,10 +19,11 @@ export const Content = styled.div`
   background: ${COLORS.WHITE};
   margin-top: 30px;
   padding: 20px;
+  border-radius: 5px;
 
   p {
     font-size: 22px;
-    margin: 20px 0;
+    margin: 10px 0;
     font-weight: bold;
     color: ${COLORS.PRIMARY};
   }
@@ -38,7 +39,14 @@ export const Content = styled.div`
       color: ${COLORS.PRIMARY};
       border: solid 1px;
       border-radius: 4px;
+    }
+
+    label {
       margin-top: 10px;
+      margin-bottom: 3px;
+      font-size: 12px;
+      font-weight: bold;
+      align-self: flex-start;
     }
 
     button {
