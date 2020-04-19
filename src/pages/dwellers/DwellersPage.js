@@ -12,7 +12,7 @@ import {
 
 import COLORS from '../../constants/colors';
 
-import FormBlockComponent from '../../components/formBlock/FormBlockComponent';
+import FormDwellerComponent from '../../components/formDweller/FormDwellerComponent';
 import { Container, Content, ContainerScroll, Card } from './styles';
 
 function DwellersPage() {
@@ -60,7 +60,7 @@ function DwellersPage() {
   return (
     <>
       {openForm && (
-        <FormBlockComponent
+        <FormDwellerComponent
           close={() => setOpenForm(false)}
           onSubmit={onSave}
           initialData={edit}

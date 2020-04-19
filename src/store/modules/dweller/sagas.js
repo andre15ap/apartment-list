@@ -22,12 +22,12 @@ export function* getAllDwellersRequest({ payload }) {
 
 export function* saveDwellersRequest({ payload }) {
   try {
-    const { identifier, id } = payload.data;
+    const { id, ...rest } = payload.data;
     if (id) {
-      yield call(api.put, `/dwellers/${id}`, { identifier });
+      yield call(api.put, `/dwellers/${id}`, rest);
       toast.success('Editado com sucesso!');
     } else {
-      yield call(api.post, `/dwellers`, { identifier });
+      yield call(api.post, `/dwellers`, rest);
       toast.success('Criado com sucesso!');
     }
 
