@@ -83,16 +83,17 @@ function ApartmentPage() {
               </div>
             }
           >
-            {blocks &&
-              blocks.map((card) => (
-                <CardBodyComponent
-                  key={card.id}
-                  title={card.identifier}
-                  actionEdit={openEditForm}
-                  actionDelete={onDelete}
-                  item={card}
-                />
-              ))}
+            {blocks.length
+              ? blocks.map((card) => (
+                  <CardBodyComponent
+                    key={card.id}
+                    title={card.identifier}
+                    actionEdit={openEditForm}
+                    actionDelete={onDelete}
+                    item={card}
+                  />
+                ))
+              : !loading && <h4>Lista Vazia</h4>}
           </InfiniteScroll>
         </ContainerScrollComponent>
       </Container>

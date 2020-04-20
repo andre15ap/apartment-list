@@ -85,20 +85,21 @@ function DwellersPage() {
               </div>
             }
           >
-            {dwellers &&
-              dwellers.map((card) => (
-                <CardBodyComponent
-                  key={card.id}
-                  title={card.name}
-                  subTitle={`Apartamento: ${
-                    card.apartment ? card.apartment.identifier : ' - '
-                  }`}
-                  subSubTitle={`${card.responsible ? 'Responsável' : ''}`}
-                  actionEdit={openEditForm}
-                  actionDelete={onDelete}
-                  item={card}
-                />
-              ))}
+            {dwellers.length
+              ? dwellers.map((card) => (
+                  <CardBodyComponent
+                    key={card.id}
+                    title={card.name}
+                    subTitle={`Apartamento: ${
+                      card.apartment ? card.apartment.identifier : ' - '
+                    }`}
+                    subSubTitle={`${card.responsible ? 'Responsável' : ''}`}
+                    actionEdit={openEditForm}
+                    actionDelete={onDelete}
+                    item={card}
+                  />
+                ))
+              : !loading && <h4>Lista Vazia</h4>}
           </InfiniteScroll>
         </ContainerScrollComponent>
       </Container>

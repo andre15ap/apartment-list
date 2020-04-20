@@ -22,16 +22,21 @@ export const Container = styled.div`
   }
 
   button {
+    padding: 5px 6px 2px 6px;
+    margin: 0 5px;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     padding-bottom: 5px;
     display: flex;
     color: ${COLORS.PRIMARY};
+    background: ${COLORS.WHITE};
+    border-radius: 5px;
+    border-color: ${COLORS.GRAY_LIGHT};
+    border-width: 1px;
   }
 
   span {
     margin-left: 5px;
-    /* margin-bottom: 5px; */
   }
 `;

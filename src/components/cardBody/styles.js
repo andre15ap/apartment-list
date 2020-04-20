@@ -17,6 +17,15 @@ export const Conteiner = styled.div`
     font-size: 12px;
     font-weight: bold;
   }
+
+  button {
+    padding: 5px 6px 2px 6px;
+    margin: 0 5px;
+    background: ${COLORS.WHITE};
+    border-radius: 5px;
+    border-color: ${COLORS.GRAY_LIGHT};
+    border-width: 1px;
+  }
 `;
 
 export const Title = styled.h3`

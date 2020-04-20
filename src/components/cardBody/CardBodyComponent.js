@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FaTrashAlt, FaEdit } from 'react-icons/fa';
+import { FaTrashAlt, FaEdit, FaUserFriends } from 'react-icons/fa';
 
 import COLORS from '../../constants/colors';
 
@@ -12,6 +12,7 @@ function CardBodyComponent({
   subSubTitle,
   actionEdit,
   actionDelete,
+  actionDwellers,
   item,
 }) {
   return (
@@ -22,6 +23,11 @@ function CardBodyComponent({
         <p>{subSubTitle}</p>
       </div>
       <div>
+        {actionDwellers && (
+          <button onClick={() => actionDwellers()} type="button">
+            <FaUserFriends color={COLORS.PRIMARY_LIGHT} size={20} />
+          </button>
+        )}
         <button onClick={() => actionEdit(item)} type="button">
           <FaEdit color={COLORS.SECONDARY_DARK} size={20} />
         </button>
@@ -39,6 +45,7 @@ CardBodyComponent.propTypes = {
   subSubTitle: PropTypes.string,
   actionEdit: PropTypes.func.isRequired,
   actionDelete: PropTypes.func.isRequired,
+  actionDwellers: PropTypes.func,
   item: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -53,6 +60,7 @@ CardBodyComponent.propTypes = {
 CardBodyComponent.defaultProps = {
   subTitle: '',
   subSubTitle: '',
+  actionDwellers: null,
 };
 
 export default CardBodyComponent;

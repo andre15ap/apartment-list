@@ -18,12 +18,10 @@ export const Container = styled.div`
     flex-direction: column;
   }
 
-  button {
-    padding: 5px 6px 2px 6px;
-    margin: 0 5px;
-    background: ${COLORS.WHITE};
-    border-radius: 5px;
-    border-color: ${COLORS.GRAY_LIGHT};
-    border-width: 1px;
+  h4 {
+    align-self: center;
+    color: ${COLORS.PRYMARY};
+    text-align: center;
+    margin: 20px;
   }
 `;

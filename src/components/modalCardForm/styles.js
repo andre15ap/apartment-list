@@ -49,7 +49,7 @@ export const Content = styled.div`
       align-self: flex-start;
     }
 
-    button {
+    > button {
       height: 44px;
       padding: 0 15px;
       background: ${COLORS.PRIMARY};
@@ -72,7 +72,7 @@ export const Content = styled.div`
     }
   }
 
-  button {
+  > button {
     height: 40px;
     width: 100%;
     padding: 0 15px;

@@ -33,7 +33,12 @@ export const Container = styled.div`
       height: 38px;
       margin: 5px;
       font-weight: bold;
-      color: ${COLORS.PRIMARY}
+      color: ${COLORS.PRIMARY};
+      background: ${COLORS.WHITE};
+      padding: 0 5px;
+      border-radius: 5px;
+      border-color: ${COLORS.GRAY_LIGHT};
+      border-width: 1px;
     }
 
     span {

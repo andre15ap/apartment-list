@@ -8,17 +8,22 @@ import {
   deleteRequest,
 } from '../../store/modules/apartment/actions';
 
+import { saveRequest as saveDweller } from '../../store/modules/dweller/actions';
+
 import PAGES from '../../constants/pagesPagination';
 
 import FormApartmentComponent from '../../components/formApartment/FormApartmentComponent';
 import ContainerScrollComponent from '../../components/containerScroll/ContainerScrollComponent';
 import ContainerTitleComponent from '../../components/containerTitle/ContainerTitleComponent';
 import CardBodyComponent from '../../components/cardBody/CardBodyComponent';
+import CardDwellersComponent from '../../components/cardDwellers/CardDwellersComponent';
 
 import { Container } from './styles';
 
 function ApartmentPage() {
   const [openForm, setOpenForm] = useState(false);
+  const [openDwellers, setOpenDwellers] = useState(false);
+  const [dwellers, setDwellers] = useState([]);
   const [edit, setEdit] = useState(null);
 
   const dispatch = useDispatch();
@@ -33,6 +38,11 @@ function ApartmentPage() {
 
   const onSave = (data) => {
     dispatch(saveRequest(data));
+  };
+
+  const onSaveDweller = (data) => {
+    dispatch(saveDweller(data));
+    getAllApartments();
   };
 
   const onDelete = (id) => {
@@ -50,13 +60,22 @@ function ApartmentPage() {
   };
 
   const getResponsible = (listDwellers) => {
-    if (listDwellers.length === 1) {
-      return listDwellers[0].label;
+    try {
+      if (listDwellers.length === 1) {
+        return listDwellers[0].label;
+      }
+      const responsible = listDwellers.filter(
+        (value) => value.responsible === true
+      );
+      return responsible[0].label;
+    } catch (e) {
+      console.log(e);
     }
-    const responsible = listDwellers.filter(
-      (value) => value.responsible === true
-    );
-    return responsible[0].label;
+  };
+
+  const handleDwellers = (list) => {
+    setDwellers(list);
+    setOpenDwellers(true);
   };
 
   const loadMore = () => {
@@ -71,6 +90,14 @@ function ApartmentPage() {
 
   return (
     <>
+      {openDwellers && (
+        <CardDwellersComponent
+          close={() => setOpenDwellers(false)}
+          action={onSaveDweller}
+          dwellers={dwellers}
+        />
+      )}
+
       {openForm && (
         <FormApartmentComponent
           close={() => setOpenForm(false)}
@@ -93,18 +120,22 @@ function ApartmentPage() {
               </div>
             }
           >
-            {apartments &&
-              apartments.map((card) => (
-                <CardBodyComponent
-                  key={card.id}
-                  title={card.identifier}
-                  subTitle={`Bloco: ${card.block ? card.block.label : ' - '}`}
-                  subSubTitle={`Responsável: ${getResponsible(card.dwellers)}`}
-                  actionEdit={openEditForm}
-                  actionDelete={onDelete}
-                  item={card}
-                />
-              ))}
+            {apartments.length
+              ? apartments.map((card) => (
+                  <CardBodyComponent
+                    key={card.id}
+                    title={card.identifier}
+                    subTitle={`Bloco: ${card.block ? card.block.label : ' - '}`}
+                    subSubTitle={`Responsável: ${getResponsible(
+                      card.dwellers
+                    )}`}
+                    actionEdit={openEditForm}
+                    actionDelete={onDelete}
+                    actionDwellers={() => handleDwellers(card.dwellers)}
+                    item={card}
+                  />
+                ))
+              : !loading && <h4>Lista Vazia</h4>}
           </InfiniteScroll>
         </ContainerScrollComponent>
       </Container>
