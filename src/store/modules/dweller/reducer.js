@@ -1,4 +1,5 @@
 import TYPES from './types';
+import PAGES from '../../../constants/pagesPagination';
 
 const INITIAL_SATATE = {
   dwellers: [],
@@ -22,7 +23,7 @@ function dweller(state = INITIAL_SATATE, action) {
         dwellers: [...state.dwellers, ...action.payload.data],
         page: state.page + 1,
         loading: false,
-        hasMore: !(action.payload.data.length < 15),
+        hasMore: !(action.payload.data.length < PAGES),
       };
     case TYPES.DWELLER_LIST_FAILURE:
       return { ...state, loading: false };

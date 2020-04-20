@@ -13,7 +13,6 @@ function HeaderComponent() {
       <Content>
         <nav>
           <img src={logo} alt="kiper" />
-          <Link to="/apartamentos">Home</Link>
         </nav>
 
         <aside>

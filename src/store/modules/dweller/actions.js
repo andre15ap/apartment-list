@@ -1,10 +1,10 @@
 import TYPES from './types';
 
-export function listRequest(page) {
-  console.log('chamado dweller ', page);
+export function listRequest(page, name = '', apartmentId = null) {
+  // console.log('chamado dweller ', page);
   return {
     type: TYPES.DWELLER_LIST_REQUEST,
-    payload: { page },
+    payload: { page, name, apartmentId },
   };
 }
 

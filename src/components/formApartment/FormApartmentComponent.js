@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import { getBlocks, getDwellers } from '../../services/serviceSelect';
 
-import { Container, Content } from './styles';
+import ModalCarFormComponent from '../modalCardForm/ModalCardFormComponent';
 
 const schema = Yup.object().shape({
   identifier: Yup.string().required('Identificador é obrigatório'),
@@ -75,39 +75,41 @@ function FormApartmentComponent({ onSubmit, close, initialData }) {
   }, []);
 
   return (
-    <Container>
-      <Content>
-        <p>{initialData ? 'Editar Apartamento' : 'Novo Apartamento'}</p>
-        <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
-          <Input
-            label="Identificador"
-            minLength={2}
-            name="identifier"
-            placeholder="digite o Número do apartamento"
-          />
-          <label htmlFor="dwellers">Bloco</label>
-          <Select
-            value={block}
-            onChange={(value) => setBlock(value)}
-            name="block"
-            options={allblocks}
-          />
-          <label htmlFor="dwellers">Moradores</label>
-          <Select
-            value={dwellers}
-            isMulti
-            onChange={(value) => setDwellers(value)}
-            name="dwellers"
-            options={allDwellers}
-          />
+    <ModalCarFormComponent>
+      <p>{initialData ? 'Editar Apartamento' : 'Novo Apartamento'}</p>
+      <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
+        <Input
+          label="Identificador"
+          minLength={2}
+          name="identifier"
+          placeholder="digite o Número do apartamento"
+        />
+        <label htmlFor="dwellers">Bloco</label>
+        <Select
+          value={block}
+          onChange={(value) => setBlock(value)}
+          name="block"
+          placeholder="Escolha o Block"
+          options={allblocks}
+        />
+        <label htmlFor="dwellers">Moradores</label>
+        <Select
+          value={dwellers}
+          isMulti
+          onChange={(value) => setDwellers(value)}
+          name="dwellers"
+          placeholder={`Escolha os Moradores. ${
+            !initialData ? 'O primeiro selecionado será o responsável' : ''
+          }`}
+          options={allDwellers}
+        />
 
-          <button type="submit">Salvar</button>
-        </Form>
-        <button onClick={close} type="submit">
-          Cancelar
-        </button>
-      </Content>
-    </Container>
+        <button type="submit">Salvar</button>
+      </Form>
+      <button onClick={close} type="submit">
+        Cancelar
+      </button>
+    </ModalCarFormComponent>
   );
 }
 
@@ -115,7 +117,12 @@ FormApartmentComponent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
   initialData: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.number,
+    ])
   ),
 };
 

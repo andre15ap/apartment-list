@@ -7,8 +7,11 @@ import TYPES from './types';
 
 export function* getAllDwellersRequest({ payload }) {
   try {
-    const { page = 1 } = payload;
-    const response = yield call(api.get, `/dwellers?page=${page}`);
+    const { page = 1, apartmentId, name } = payload;
+    const response = yield call(
+      api.get,
+      `/dwellers?page=${page}&name=${name}&apartment_id=${apartmentId || ''}`
+    );
     yield put(listSuccess(response.data));
   } catch (err) {
     if (err.response) {

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
@@ -7,7 +8,8 @@ import { toast } from 'react-toastify';
 
 import { CPF_MASK, PHONE_MASK, BIRTHDAY_MASK } from '../../services/masks';
 import { validateCpf } from '../../services/validate';
-import { Container, Content } from './styles';
+
+import ModalCarFormComponent from '../modalCardForm/ModalCardFormComponent';
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -61,8 +63,6 @@ function FormDwellerComponent({ onSubmit, close, initialData }) {
   };
 
   const handleSubmit = (data) => {
-    console.log(data);
-
     if (inValidForm()) return;
 
     const newData = initialData
@@ -87,53 +87,51 @@ function FormDwellerComponent({ onSubmit, close, initialData }) {
   }, []);
 
   return (
-    <Container>
-      <Content>
-        <p>{initialData ? 'Editar Morador' : 'Novo Morador'}</p>
-        <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
-          <Input
-            label="Nome Completo"
-            minLength={3}
-            name="name"
-            placeholder="digite o nome"
-          />
+    <ModalCarFormComponent>
+      <p>{initialData ? 'Editar Morador' : 'Novo Morador'}</p>
+      <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
+        <Input
+          label="Nome Completo"
+          minLength={3}
+          name="name"
+          placeholder="digite o nome"
+        />
 
-          <Input
-            label="Email"
-            type="email"
-            minLength={3}
-            name="email"
-            placeholder="digite o e-mail"
-          />
-          <label htlmFor="birthday">Data de Nascimento</label>
-          <input
-            onChange={handleBirthday}
-            value={birthday}
-            placeholder="digite a Data de Nascimento"
-            name="birthday"
-          />
-          <label htlmFor="cpf">CPF do Morador</label>
-          <input
-            onChange={handleCpf}
-            value={cpf}
-            placeholder="digite o CPF"
-            name="cpf"
-          />
-          <label htlmFor="phone">Telefone</label>
-          <input
-            onChange={handlePhone}
-            value={phone}
-            placeholder="digite o Telefone"
-            name="phone"
-          />
+        <Input
+          label="Email"
+          type="email"
+          minLength={3}
+          name="email"
+          placeholder="digite o e-mail"
+        />
+        <label htmlFor="birthday">Data de Nascimento</label>
+        <input
+          onChange={handleBirthday}
+          value={birthday}
+          placeholder="digite a Data de Nascimento"
+          name="birthday"
+        />
+        <label htmlFor="cpf">CPF do Morador</label>
+        <input
+          onChange={handleCpf}
+          value={cpf}
+          placeholder="digite o CPF"
+          name="cpf"
+        />
+        <label htmlFor="phone">Telefone</label>
+        <input
+          onChange={handlePhone}
+          value={phone}
+          placeholder="digite o Telefone"
+          name="phone"
+        />
 
-          <button type="submit">Salvar</button>
-        </Form>
-        <button onClick={close} type="submit">
-          Cancelar
-        </button>
-      </Content>
-    </Container>
+        <button type="submit">Salvar</button>
+      </Form>
+      <button onClick={close} type="submit">
+        Cancelar
+      </button>
+    </ModalCarFormComponent>
   );
 }
 
@@ -141,7 +139,12 @@ FormDwellerComponent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
   initialData: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.bool,
+      PropTypes.number,
+    ])
   ),
 };
 

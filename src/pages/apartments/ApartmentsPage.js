@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FaTrashAlt, FaEdit, FaRegPlusSquare } from 'react-icons/fa';
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 
 import InfiniteScroll from 'react-infinite-scroller';
 import {
@@ -13,7 +13,10 @@ import {
 import COLORS from '../../constants/colors';
 
 import FormApartmentComponent from '../../components/formApartment/FormApartmentComponent';
-import { Container, Content, ContainerScroll, Card } from './styles';
+import ContainerScrollComponent from '../../components/containerScroll/ContainerScrollComponent';
+import ContainerTitleComponent from '../../components/containerTitle/ContainerTitleComponent';
+
+import { Container, Card } from './styles';
 
 function ApartmentPage() {
   const [openForm, setOpenForm] = useState(false);
@@ -47,6 +50,13 @@ function ApartmentPage() {
     setOpenForm(true);
   };
 
+  const getResponsible = (listDwellers) => {
+    const responsible = listDwellers.filter(
+      (value) => value.responsible === true
+    );
+    return responsible[0].label;
+  };
+
   const loadMore = () => {
     if (apartments.length >= 15 && !loading) {
       dispatch(listRequest(page));
@@ -67,15 +77,8 @@ function ApartmentPage() {
         />
       )}
       <Container>
-        <ContainerScroll>
-          <Content>
-            <div>
-              <strong>Apartmentos</strong>
-              <button type="button" onClick={openSaveForm}>
-                <FaRegPlusSquare color={COLORS.PRIMARY} size={20} />
-              </button>
-            </div>
-          </Content>
+        <ContainerScrollComponent>
+          <ContainerTitleComponent title="Apartamentos" action={openSaveForm} />
           <InfiniteScroll
             pageStart={0}
             threshold={10}
@@ -84,7 +87,7 @@ function ApartmentPage() {
             useWindow={false}
             loader={
               <div className="loader" key={0}>
-                Loading ...
+                Buscando ...
               </div>
             }
           >
@@ -93,7 +96,9 @@ function ApartmentPage() {
                 <Card key={card.id}>
                   <div>
                     <p>{card.identifier}</p>
-                    <span>Bloco.: {card.block ? card.block.label : ' - '}</span>
+                    <span>Bloco: {card.block ? card.block.label : ' - '}</span>
+                    <br />
+                    <span>Responsável: {getResponsible(card.dwellers)}</span>
                   </div>
                   <div>
                     <button onClick={() => openEditForm(card)} type="button">
@@ -106,7 +111,7 @@ function ApartmentPage() {
                 </Card>
               ))}
           </InfiniteScroll>
-        </ContainerScroll>
+        </ContainerScrollComponent>
       </Container>
     </>
   );

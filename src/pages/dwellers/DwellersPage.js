@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FaTrashAlt, FaEdit, FaRegPlusSquare } from 'react-icons/fa';
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 
 import InfiniteScroll from 'react-infinite-scroller';
 import {
@@ -11,9 +11,14 @@ import {
 } from '../../store/modules/dweller/actions';
 
 import COLORS from '../../constants/colors';
+import PAGES from '../../constants/pagesPagination';
 
 import FormDwellerComponent from '../../components/formDweller/FormDwellerComponent';
-import { Container, Content, ContainerScroll, Card } from './styles';
+import ContainerScrollComponent from '../../components/containerScroll/ContainerScrollComponent';
+import FiltersDwellersComponent from '../../components/filtersDwellers/FiltersDwellersComponent';
+import ContainerTitleComponent from '../../components/containerTitle/ContainerTitleComponent';
+
+import { Container, Card } from './styles';
 
 function DwellersPage() {
   const [openForm, setOpenForm] = useState(false);
@@ -48,7 +53,7 @@ function DwellersPage() {
   };
 
   const loadMore = () => {
-    if (dwellers.length >= 15 && !loading) {
+    if (dwellers.length >= PAGES && !loading) {
       dispatch(listRequest(page));
     }
   };
@@ -67,15 +72,9 @@ function DwellersPage() {
         />
       )}
       <Container>
-        <ContainerScroll>
-          <Content>
-            <div>
-              <strong>Moradores</strong>
-              <button type="button" onClick={openSaveForm}>
-                <FaRegPlusSquare color={COLORS.PRIMARY} size={20} />
-              </button>
-            </div>
-          </Content>
+        <ContainerScrollComponent>
+          <ContainerTitleComponent title="Moradores" action={openSaveForm} />
+          <FiltersDwellersComponent />
           <InfiniteScroll
             pageStart={0}
             threshold={10}
@@ -84,7 +83,7 @@ function DwellersPage() {
             useWindow={false}
             loader={
               <div className="loader" key={0}>
-                Loading ...
+                Buscando ...
               </div>
             }
           >
@@ -110,7 +109,7 @@ function DwellersPage() {
                 </Card>
               ))}
           </InfiniteScroll>
-        </ContainerScroll>
+        </ContainerScrollComponent>
       </Container>
     </>
   );

@@ -18,4 +18,13 @@ const getDwellers = async () => {
   }
 };
 
-export { getBlocks, getDwellers };
+const getApartments = async () => {
+  try {
+    const response = await api.get(`/apartments-findall`);
+    return response.data;
+  } catch (err) {
+    return [];
+  }
+};
+
+export { getBlocks, getDwellers, getApartments };

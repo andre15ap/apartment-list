@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FaTrashAlt, FaEdit, FaRegPlusSquare } from 'react-icons/fa';
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 
 import InfiniteScroll from 'react-infinite-scroller';
 import {
@@ -11,9 +11,13 @@ import {
 } from '../../store/modules/block/actions';
 
 import COLORS from '../../constants/colors';
+import PAGES from '../../constants/pagesPagination';
 
 import FormBlockComponent from '../../components/formBlock/FormBlockComponent';
-import { Container, Content, ContainerScroll, Card } from './styles';
+import ContainerScrollComponent from '../../components/containerScroll/ContainerScrollComponent';
+import ContainerTitleComponent from '../../components/containerTitle/ContainerTitleComponent';
+
+import { Container, Card } from './styles';
 
 function ApartmentPage() {
   const [openForm, setOpenForm] = useState(false);
@@ -48,7 +52,7 @@ function ApartmentPage() {
   };
 
   const loadMore = () => {
-    if (blocks.length >= 15 && !loading) {
+    if (blocks.length >= PAGES && !loading) {
       dispatch(listRequest(page));
     }
   };
@@ -67,15 +71,8 @@ function ApartmentPage() {
         />
       )}
       <Container>
-        <ContainerScroll>
-          <Content>
-            <div>
-              <strong>Blocos</strong>
-              <button type="button" onClick={openSaveForm}>
-                <FaRegPlusSquare color={COLORS.PRIMARY} size={20} />
-              </button>
-            </div>
-          </Content>
+        <ContainerScrollComponent>
+          <ContainerTitleComponent title="Blocos" action={openSaveForm} />
           <InfiniteScroll
             pageStart={0}
             threshold={10}
@@ -84,7 +81,7 @@ function ApartmentPage() {
             useWindow={false}
             loader={
               <div className="loader" key={0}>
-                Loading ...
+                Buscando ...
               </div>
             }
           >
@@ -103,7 +100,7 @@ function ApartmentPage() {
                 </Card>
               ))}
           </InfiniteScroll>
-        </ContainerScroll>
+        </ContainerScrollComponent>
       </Container>
     </>
   );
