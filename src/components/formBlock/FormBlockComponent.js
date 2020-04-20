@@ -16,7 +16,7 @@ function FormBlockComponent({ onSubmit, close, initialData }) {
       <Form initialData={initialData} onSubmit={handleSubmit}>
         <Input
           label="Identificador"
-          minLength={3}
+          minLength={2}
           name="identifier"
           placeholder="digite o nome do bloco"
         />

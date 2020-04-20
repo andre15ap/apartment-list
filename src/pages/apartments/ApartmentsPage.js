@@ -38,6 +38,9 @@ function ApartmentPage() {
 
   const onSave = (data) => {
     dispatch(saveRequest(data));
+    setTimeout(() => {
+      getAllApartments();
+    }, 500);
   };
 
   const onSaveDweller = (data) => {
@@ -70,6 +73,7 @@ function ApartmentPage() {
       return responsible[0].label;
     } catch (e) {
       console.log(e);
+      return ' - ';
     }
   };
 
