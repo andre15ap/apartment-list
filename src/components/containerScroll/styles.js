@@ -14,6 +14,8 @@ export const Container = styled.div`
   > div {
     width: 100%;
     max-width: 900px;
+    display: flex;
+    flex-direction: column;
   }
 
   button {

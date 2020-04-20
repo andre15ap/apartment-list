@@ -31,7 +31,7 @@ export const Container = styled.div`
   }
 
   span {
-    margin-left: 3px;
+    margin-left: 5px;
     /* margin-bottom: 5px; */
   }
 `;

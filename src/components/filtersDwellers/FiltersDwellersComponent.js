@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 
+import { FaSearch } from 'react-icons/fa';
+
 import { listRequest } from '../../store/modules/dweller/actions';
 import { getApartments } from '../../services/serviceSelect';
+
+import COLORS from '../../constants/colors';
 
 import { Container } from './styles';
 
@@ -46,7 +50,8 @@ function FiltersDwellersComponent() {
           options={allApartments}
         />
         <button onClick={handleClick} type="button">
-          Buscar
+          <FaSearch color={COLORS.PRIMARY} size={14} />
+          <span>Filtrar</span>
         </button>
       </div>
     </Container>

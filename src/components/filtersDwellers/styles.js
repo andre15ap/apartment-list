@@ -32,6 +32,12 @@ export const Container = styled.div`
     button {
       height: 38px;
       margin: 5px;
+      font-weight: bold;
+      color: ${COLORS.PRIMARY}
+    }
+
+    span {
+        margin-left: 5px;
     }
   }
 

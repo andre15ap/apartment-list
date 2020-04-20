@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import COLORS from '../../constants/colors';
 
 export const Container = styled.div`
-  background: ${COLORS.WHITE};
+  background: ${COLORS.PRIMARY};
   padding: 0 30px;
   position: absolute;
   width: 100%;
@@ -30,7 +30,7 @@ export const Content = styled.div`
   }
 
   a {
-    color: ${COLORS.PRIMARY};
+    color: ${COLORS.WHITE};
     font-weight: bold;
   }
 
@@ -38,14 +38,26 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
 
-    @media only screen and (max-width: 600px) {
-      .links {
-        display: none;
-      }
-    }
-
     a {
       margin: 0 5px;
+    }
+  }
+
+  .rowProfile {
+    display: none;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .profile {
+      display: none;
+    }
+    .rowProfile {
+      display: flex;
+    }
+    .aside {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
     }
   }
 `;
@@ -62,14 +74,14 @@ export const Profile = styled.div`
 
     strong {
       display: block;
-      color: ${COLORS.GRAY};
+      color: ${COLORS.BLACK};
     }
 
     a {
       display: block;
       margin-top: 2px;
       font-size: 12px;
-      color: ${COLORS.PRIMARY_LIGHT};
+      color: ${COLORS.WHITE};
     }
   }
 `;

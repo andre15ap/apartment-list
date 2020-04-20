@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FaTrashAlt, FaEdit } from 'react-icons/fa';
-
 import InfiniteScroll from 'react-infinite-scroller';
 import {
   listRequest,
@@ -10,13 +8,14 @@ import {
   deleteRequest,
 } from '../../store/modules/apartment/actions';
 
-import COLORS from '../../constants/colors';
+import PAGES from '../../constants/pagesPagination';
 
 import FormApartmentComponent from '../../components/formApartment/FormApartmentComponent';
 import ContainerScrollComponent from '../../components/containerScroll/ContainerScrollComponent';
 import ContainerTitleComponent from '../../components/containerTitle/ContainerTitleComponent';
+import CardBodyComponent from '../../components/cardBody/CardBodyComponent';
 
-import { Container, Card } from './styles';
+import { Container } from './styles';
 
 function ApartmentPage() {
   const [openForm, setOpenForm] = useState(false);
@@ -51,6 +50,9 @@ function ApartmentPage() {
   };
 
   const getResponsible = (listDwellers) => {
+    if (listDwellers.length === 1) {
+      return listDwellers[0].label;
+    }
     const responsible = listDwellers.filter(
       (value) => value.responsible === true
     );
@@ -58,7 +60,7 @@ function ApartmentPage() {
   };
 
   const loadMore = () => {
-    if (apartments.length >= 15 && !loading) {
+    if (apartments.length >= PAGES && !loading) {
       dispatch(listRequest(page));
     }
   };
@@ -93,22 +95,15 @@ function ApartmentPage() {
           >
             {apartments &&
               apartments.map((card) => (
-                <Card key={card.id}>
-                  <div>
-                    <p>{card.identifier}</p>
-                    <span>Bloco: {card.block ? card.block.label : ' - '}</span>
-                    <br />
-                    <span>Responsável: {getResponsible(card.dwellers)}</span>
-                  </div>
-                  <div>
-                    <button onClick={() => openEditForm(card)} type="button">
-                      <FaEdit color={COLORS.SECONDARY_DARK} size={20} />
-                    </button>
-                    <button onClick={() => onDelete(card.id)} type="button">
-                      <FaTrashAlt color={COLORS.DANGER} size={20} />
-                    </button>
-                  </div>
-                </Card>
+                <CardBodyComponent
+                  key={card.id}
+                  title={card.identifier}
+                  subTitle={`Bloco: ${card.block ? card.block.label : ' - '}`}
+                  subSubTitle={`Responsável: ${getResponsible(card.dwellers)}`}
+                  actionEdit={openEditForm}
+                  actionDelete={onDelete}
+                  item={card}
+                />
               ))}
           </InfiniteScroll>
         </ContainerScrollComponent>

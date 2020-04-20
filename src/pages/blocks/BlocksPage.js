@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FaTrashAlt, FaEdit } from 'react-icons/fa';
-
 import InfiniteScroll from 'react-infinite-scroller';
 import {
   listRequest,
@@ -10,14 +8,14 @@ import {
   deleteRequest,
 } from '../../store/modules/block/actions';
 
-import COLORS from '../../constants/colors';
 import PAGES from '../../constants/pagesPagination';
 
 import FormBlockComponent from '../../components/formBlock/FormBlockComponent';
 import ContainerScrollComponent from '../../components/containerScroll/ContainerScrollComponent';
 import ContainerTitleComponent from '../../components/containerTitle/ContainerTitleComponent';
+import CardBodyComponent from '../../components/cardBody/CardBodyComponent';
 
-import { Container, Card } from './styles';
+import { Container } from './styles';
 
 function ApartmentPage() {
   const [openForm, setOpenForm] = useState(false);
@@ -87,17 +85,13 @@ function ApartmentPage() {
           >
             {blocks &&
               blocks.map((card) => (
-                <Card key={card.id}>
-                  <p>{card.identifier}</p>
-                  <div>
-                    <button onClick={() => openEditForm(card)} type="button">
-                      <FaEdit color={COLORS.SECONDARY_DARK} size={20} />
-                    </button>
-                    <button onClick={() => onDelete(card.id)} type="button">
-                      <FaTrashAlt color={COLORS.DANGER} size={20} />
-                    </button>
-                  </div>
-                </Card>
+                <CardBodyComponent
+                  key={card.id}
+                  title={card.identifier}
+                  actionEdit={openEditForm}
+                  actionDelete={onDelete}
+                  item={card}
+                />
               ))}
           </InfiniteScroll>
         </ContainerScrollComponent>

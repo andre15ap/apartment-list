@@ -15,14 +15,17 @@ function HeaderComponent() {
           <img src={logo} alt="kiper" />
         </nav>
 
-        <aside>
-          <div className="links">
+        <aside className="aside">
+          <div>
             <Link to="/moradores">Moradores</Link>
             <Link to="/apartamentos">Apartamentos</Link>
             <Link to="/blocos">Blocos</Link>
           </div>
+          <div className="rowProfile">
+            <Link to="/profile">Meu Perfil</Link>
+          </div>
           <Profile>
-            <div>
+            <div className="profile">
               <strong>{profile.name}</strong>
               <Link to="/profile">Meu Perfil</Link>
             </div>
