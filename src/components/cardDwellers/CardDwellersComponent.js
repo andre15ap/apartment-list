@@ -42,7 +42,7 @@ function CardDwellersComponent({ close, action, dwellers }) {
   return (
     <ModalCardFormComponent>
       <Container>
-        <Title>Escolha o Responsável pelo Apartamentos</Title>
+        <Title>Escolha o Responsável pelo Apartamento</Title>
         <div>
           {dwellers.map((value) => (
             <RowButton
