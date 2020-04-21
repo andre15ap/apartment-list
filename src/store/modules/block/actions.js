@@ -1,7 +1,6 @@
 import TYPES from './types';
 
 export function listRequest(page) {
-  console.log('chamdo ', page);
   return {
     type: TYPES.BLOCK_LIST_REQUEST,
     payload: { page },

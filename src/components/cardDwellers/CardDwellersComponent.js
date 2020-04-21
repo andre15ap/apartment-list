@@ -20,24 +20,24 @@ function CardDwellersComponent({ close, action, dwellers }) {
   };
 
   const handleConfirm = () => {
-    const data = { id: dweller, responsible: true };
+    const data = { id: dweller, byApartment: true, responsible: true };
     action(data);
     close();
   };
 
-  useEffect(() => {
-    try {
-      if (dwellers.length === 1) {
-        setDweller(dwellers[0].value);
-      } else {
-        const responsible = dwellers.filter(
-          (value) => value.responsible === true
-        );
-        setDweller(responsible[0].value);
-      }
-    } catch (e) {
-      console.log(e);
+  const getDwellers = () => {
+    if (dwellers.length === 1) {
+      setDweller(dwellers[0].value);
+    } else {
+      const responsible = dwellers.filter(
+        (value) => value.responsible === true
+      );
+      setDweller(responsible[0].value);
     }
+  };
+
+  useEffect(() => {
+    getDwellers();
   }, [dwellers]);
   return (
     <ModalCardFormComponent>

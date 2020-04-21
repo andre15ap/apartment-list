@@ -38,16 +38,10 @@ function ApartmentPage() {
 
   const onSave = (data) => {
     dispatch(saveRequest(data));
-    setTimeout(() => {
-      getAllApartments();
-    }, 500);
   };
 
   const onSaveDweller = (data) => {
     dispatch(saveDweller(data));
-    setTimeout(() => {
-      getAllApartments();
-    }, 500);
   };
 
   const onDelete = (id) => {
@@ -65,18 +59,13 @@ function ApartmentPage() {
   };
 
   const getResponsible = (listDwellers) => {
-    try {
-      if (listDwellers.length === 1) {
-        return listDwellers[0].label;
-      }
-      const responsible = listDwellers.filter(
-        (value) => value.responsible === true
-      );
-      return responsible[0].label;
-    } catch (e) {
-      console.log(e);
-      return ' - ';
+    if (listDwellers.length === 1) {
+      return listDwellers[0].label;
     }
+    const responsible = listDwellers.filter(
+      (value) => value.responsible === true
+    );
+    return responsible[0].label;
   };
 
   const handleDwellers = (list) => {

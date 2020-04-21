@@ -1,7 +1,6 @@
 import TYPES from './types';
 
 export function listRequest(page, name = '', apartmentId = null) {
-  // console.log('chamado dweller ', page);
   return {
     type: TYPES.DWELLER_LIST_REQUEST,
     payload: { page, name, apartmentId },

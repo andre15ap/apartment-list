@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 import api from '../../../services/api';
 import { listFailure, listRequest, listSuccess } from './actions';
+import { listRequest as apartmentsRequest } from '../apartment/actions';
 import TYPES from './types';
 
 export function* getAllDwellersRequest({ payload }) {
@@ -25,16 +26,20 @@ export function* getAllDwellersRequest({ payload }) {
 
 export function* saveDwellersRequest({ payload }) {
   try {
-    const { id, ...rest } = payload.data;
+    const { id, byApartment, ...rest } = payload.data;
     if (id) {
       yield call(api.put, `/dwellers/${id}`, rest);
       toast.success('Editado com sucesso!');
+      if (byApartment) {
+        yield put(apartmentsRequest(1));
+      } else {
+        yield put(listRequest(1));
+      }
     } else {
       yield call(api.post, `/dwellers`, rest);
       toast.success('Criado com sucesso!');
+      yield put(listRequest(1));
     }
-
-    yield put(listRequest(1));
   } catch (err) {
     if (err.response) {
       toast.error(err.response.data.error);

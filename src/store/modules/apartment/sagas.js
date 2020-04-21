@@ -26,12 +26,12 @@ export function* saveApartmentsRequest({ payload }) {
     if (id) {
       yield call(api.put, `/apartments/${id}`, rest);
       toast.success('Editado com sucesso!');
+      yield put(listRequest(1));
     } else {
       yield call(api.post, `/apartments`, rest);
       toast.success('Criado com sucesso!');
+      yield put(listRequest(1));
     }
-
-    yield put(listRequest(1));
   } catch (err) {
     if (err.response) {
       toast.error(err.response.data.error);
