@@ -45,7 +45,9 @@ function ApartmentPage() {
 
   const onSaveDweller = (data) => {
     dispatch(saveDweller(data));
-    getAllApartments();
+    setTimeout(() => {
+      getAllApartments();
+    }, 500);
   };
 
   const onDelete = (id) => {
