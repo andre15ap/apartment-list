@@ -1,7 +1,7 @@
 
 # apartment-list
 
-Project developed with Reactjs.
+Project developed with Reactjs, redux and redux-sagas, styled-components applying basic clean code practices.
 
 ### Installation
 
