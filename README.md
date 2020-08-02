@@ -1,12 +1,12 @@
 
-# Kiper front
+# apartment-list
 
 Project developed with Reactjs.
 
 ### Installation
 
 ```sh
-$ cd kiper-front
+$ cd apartment-list
 $ yarn
 $ yarn start
 ```
